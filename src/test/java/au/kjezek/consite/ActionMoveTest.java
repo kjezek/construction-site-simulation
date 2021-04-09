@@ -20,7 +20,7 @@ public class ActionMoveTest {
     /** Clear part - the first row. */
     @Test
     public void testClearPartly() {
-        ActionsFactory.advance(10).action(bill, bulldozer, map);
+        ActionsFactory.advance().apply(10).action(bill, bulldozer, map, (val) -> {});
 
         // first line clear
         assertEquals(FieldType.PLAIN, map.getField(0, 0));
@@ -52,9 +52,9 @@ public class ActionMoveTest {
     public void testClearProtected() {
 
         // move to cleared area
-        ActionsFactory.advance(4).action(bill, bulldozer, map);
-        ActionsFactory.rotateRight().action(bill, bulldozer, map);
-        ActionsFactory.advance(100).action(bill, bulldozer, map);
+        ActionsFactory.advance().apply(4).action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.rotateRight().noArgs().action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.advance().apply(100).action(bill, bulldozer, map, (val) -> {});
 
         // check that the fine applied
         assertEquals(BillItem.PROTECTED.price, bill.getSumItem(BillItem.PROTECTED));
@@ -73,9 +73,9 @@ public class ActionMoveTest {
     public void testPaintCharged() {
 
         // move to cleared area
-        ActionsFactory.advance(1).action(bill, bulldozer, map);
-        ActionsFactory.rotateRight().action(bill, bulldozer, map);
-        ActionsFactory.advance(2).action(bill, bulldozer, map);
+        ActionsFactory.advance().apply(1).action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.rotateRight().noArgs().action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.advance().apply(2).action(bill, bulldozer, map, (val) -> {});
 
         // check that the fine applied
         assertEquals(BillItem.PAINT.price, bill.getSumItem(BillItem.PAINT));

@@ -2,6 +2,7 @@ package au.kjezek.consite;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class collects actions and executes simulation. It is created with an input map
@@ -16,15 +17,15 @@ import java.util.List;
 public class SimulationRun {
 
     /** The simulation is done on a map. */
-    private SiteMap map;
+    private final SiteMap map;
     /** The simulation computes the bill. */
-    private SimulationBill bill;
+    private final SimulationBill bill;
 
     /** The actor. */
-    private Bulldozer bulldozer;
+    private final Bulldozer bulldozer;
 
     /** List of actions. */
-    private List<SimulationAction> actions = new LinkedList<>();
+    private final List<SimulationAction> actions = new LinkedList<>();
 
     /** Once false, the simulation is over. */
     private boolean active = true;
@@ -45,7 +46,7 @@ public class SimulationRun {
             throw new IllegalStateException("Simulation has already ended.");
         }
 
-        actions.add(type.action.apply(param));
+        actions.add(type.action.get().apply(param));
     }
 
     /**
@@ -70,7 +71,7 @@ public class SimulationRun {
         bill.add(BillItem.RADIO, actions.size());
 
         for (SimulationAction action: actions) {
-            active &= action.action(bill, bulldozer, map);
+            action.action(bill, bulldozer, map, (val) -> active = !val);
             if (!active) {
                 break;
             }

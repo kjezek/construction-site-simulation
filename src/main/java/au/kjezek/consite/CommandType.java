@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -14,13 +13,13 @@ import java.util.stream.Collectors;
 public enum CommandType {
 
     ADVANCE('a', ActionsFactory::advance),
-    LEFT('l', (x) -> ActionsFactory.rotateLeft()),
-    RIGHT('r', (x) -> ActionsFactory.rotateRight()),
-    QUIT('q', (x) -> ActionsFactory.quit());
+    LEFT('l', ActionsFactory::rotateLeft),
+    RIGHT('r', ActionsFactory::rotateRight),
+    QUIT('q', ActionsFactory::quit);
 
     /** Letter representing the command. */
     public final char letter;
-    public final Function<Integer, SimulationAction> action;
+    public final Supplier<ActionArgument> action;
 
     /** Map for faster access to items. */
     private final static Map<Character, CommandType> cache;
@@ -30,7 +29,7 @@ public enum CommandType {
         );
     }
 
-    CommandType(char letter, Function<Integer, SimulationAction> action) {
+    CommandType(char letter, Supplier<ActionArgument> action) {
         this.letter = letter;
         this.action = action;
     }

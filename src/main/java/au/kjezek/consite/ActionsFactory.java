@@ -6,36 +6,28 @@ package au.kjezek.consite;
 public class ActionsFactory {
 
 
-    public static SimulationAction rotateLeft() {
-        return (bill, bulldozer, map) -> {
-            bulldozer.rotateLeft();
-            return true;
-        };
+    public static ActionArgument rotateLeft() {
+        return (x) -> (bill, bulldozer, map, end) -> bulldozer.rotateLeft();
     }
 
-    public static SimulationAction rotateRight() {
-        return (bill, bulldozer, map) -> {
-            bulldozer.rotateRight();
-            return true;
-        };
+    public static ActionArgument rotateRight() {
+        return (x) -> (bill, bulldozer, map, end) -> bulldozer.rotateRight();
     }
 
-    public static SimulationAction quit() {
-        return (bill, bulldozer, map) -> {
-            // TODO - mark somehow end aof simulation
+    public static ActionArgument quit() {
+        return (x) -> (bill, bulldozer, map, end) -> {
             for (FieldType field : map.fields()) {
                 if (field != FieldType.PLAIN && field != FieldType.PROTECTED) {
                     bill.add(BillItem.UNCLEARED, 1);
                 }
             }
 
-            return false;
+            end.accept(true);   // signal end
         };
     }
 
-    public static SimulationAction advance(final int steps) {
-        return (bill, bulldozer, map) -> {
-            boolean result = true;
+    public static ActionArgument advance() {
+        return (steps) -> (bill, bulldozer, map, end) -> {
 
             for (int step = 0; step < steps; step++) {
 
@@ -47,7 +39,7 @@ public class ActionsFactory {
                 // if this is out of the map, the simulation ends
                 if (map.isOutsideMap(row, col)) {
                     // TODO - no fuel charged when moving out of the map?
-                    result = quit().action(bill, bulldozer, map);
+                    quit().apply(0).action(bill, bulldozer, map, end);
                     break;
                 }
 
@@ -62,7 +54,7 @@ public class ActionsFactory {
                 // a corner cases - protected land, it ends simulation with penalty
                 if (FieldType.PROTECTED == origField) {
                     bill.add(BillItem.PROTECTED, 1);
-                    result = quit().action(bill, bulldozer, map);
+                    quit().apply(0).action(bill, bulldozer, map, end);
                     break;      // no more move
                 }
 
@@ -74,7 +66,6 @@ public class ActionsFactory {
                 }
             }
 
-            return result;
         };
     }
 }
