@@ -14,7 +14,7 @@ public enum BillItem {
     /** Price per item. */
     public final int price;
 
-    BillItem(int price) {
+    BillItem(final int price) {
         this.price = price;
     }
 }

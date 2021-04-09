@@ -2,18 +2,31 @@ package au.kjezek.consite;
 
 /**
  * A factory class to build various simulation actions.
+ * This covers key simulation operations: bulldozer movement, end of simulation, etc.
  */
 public class ActionsFactory {
 
 
+    /**
+     *
+     * @return an action that rotates the bulldozer
+     */
     public static ActionArgument rotateLeft() {
         return (x) -> (bill, bulldozer, map, end) -> bulldozer.rotateLeft();
     }
 
+    /**
+     *
+     * @return an action that rotates the bulldozer
+     */
     public static ActionArgument rotateRight() {
         return (x) -> (bill, bulldozer, map, end) -> bulldozer.rotateRight();
     }
 
+    /**
+     *
+     * @return an action that quits the simulation and computes the bill of uncleared land.
+     */
     public static ActionArgument quit() {
         return (x) -> (bill, bulldozer, map, end) -> {
             for (FieldType field : map.fields()) {
@@ -26,6 +39,10 @@ public class ActionsFactory {
         };
     }
 
+    /**
+     *
+     * @return an action that moves the bulldozer and adjust the land and the bill accordingly.
+     */
     public static ActionArgument advance() {
         return (steps) -> (bill, bulldozer, map, end) -> {
 
@@ -39,7 +56,7 @@ public class ActionsFactory {
                 // if this is out of the map, the simulation ends
                 if (map.isOutsideMap(row, col)) {
                     // TODO - no fuel charged when moving out of the map?
-                    quit().apply(0).action(bill, bulldozer, map, end);
+                    quit().noArgs().action(bill, bulldozer, map, end);
                     break;
                 }
 
@@ -54,7 +71,7 @@ public class ActionsFactory {
                 // a corner cases - protected land, it ends simulation with penalty
                 if (FieldType.PROTECTED == origField) {
                     bill.add(BillItem.PROTECTED, 1);
-                    quit().apply(0).action(bill, bulldozer, map, end);
+                    quit().noArgs().action(bill, bulldozer, map, end);
                     break;      // no more move
                 }
 
@@ -65,7 +82,6 @@ public class ActionsFactory {
                     bill.add(BillItem.PAINT, 1);
                 }
             }
-
         };
     }
 }

@@ -16,7 +16,7 @@ public class SimulationBill {
      * @param item the bill item.
      * @param units units.
      */
-    public void add(BillItem item, int units) {
+    public void add(final BillItem item, final int units) {
         if (item == null) {
             throw new IllegalArgumentException("Item must be filled. ");
         }
@@ -31,7 +31,7 @@ public class SimulationBill {
      * @param item the item
      * @return the total price of the item, or null.
      */
-    public int getSumItem(BillItem item) {
+    public int getSumItem(final BillItem item) {
         return Optional.ofNullable(bill.get(item)).orElse(0);
     }
 

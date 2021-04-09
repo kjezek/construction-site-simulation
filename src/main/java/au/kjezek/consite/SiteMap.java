@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class SiteMap {
 
-    private FieldType[][] site;
+    private final FieldType[][] site;
 
     /**
      * Create a map from input string lines.
@@ -47,7 +47,7 @@ public class SiteMap {
      * @param row row
      * @return field type
      */
-    public FieldType getField(int row, int col) {
+    public FieldType getField(final int row, final int col) {
         if (isOutsideMap(row, col)) {
             throw new IllegalArgumentException("Coordinates outside of the map: Row: " + row + " Col: " + col);
         }
@@ -76,17 +76,17 @@ public class SiteMap {
      * @param col column to check
      * @return true if the coordinates are outside of the map.
      */
-    public boolean isOutsideMap(int row, int col) {
+    public boolean isOutsideMap(final int row, final int col) {
         return row < 0 || col < 0
                 || row >= site.length || col >= site[0].length;
     }
 
     /**
      * Clear the land
-     * @param row
-     * @param col
+     * @param row row
+     * @param col column
      */
-    public void clear(int row, int col) {
+    public void clear(final int row, final int col) {
         if (isOutsideMap(row, col)) {
             throw new IllegalArgumentException("Coordinates outside of the map: Row: " + row + " Col: " + col);
         }

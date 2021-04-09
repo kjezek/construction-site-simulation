@@ -33,7 +33,7 @@ public class Bulldozer {
         this.direction = direction;
     }
 
-    /** Direction represented as a function, its execution will move the dozer in the direction. */
+    /** Direction represented as a function, their execution moves the dozer in the direction. */
     private final Consumer<Integer> NORTH = step -> row = row - step;
     private final Consumer<Integer> SOUTH = step -> row = row + step;
     private final Consumer<Integer> WEST = step -> col = col - step;

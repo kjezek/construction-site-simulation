@@ -29,7 +29,7 @@ public enum FieldType {
         );
     }
 
-    FieldType(char letter, int fuel) {
+    FieldType(final char letter, final int fuel) {
         this.letter = letter;
         this.fuel = fuel;
 

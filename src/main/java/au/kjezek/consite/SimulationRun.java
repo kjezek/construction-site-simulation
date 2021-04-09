@@ -30,7 +30,7 @@ public class SimulationRun {
     /** Once false, the simulation is over. */
     private boolean active = true;
 
-    public SimulationRun(SiteMap map, SimulationBill bill, Bulldozer bulldozer) {
+    public SimulationRun(final SiteMap map, final SimulationBill bill, final Bulldozer bulldozer) {
         this.map = map;
         this.bill = bill;
         this.bulldozer = bulldozer;
@@ -41,7 +41,7 @@ public class SimulationRun {
      * @param type action type
      * @param param possible parameters for some of the commands.
      */
-    public void addAction(CommandType type, int param) {
+    public void addAction(final CommandType type, final int param) {
         if (!active) {
             throw new IllegalStateException("Simulation has already ended.");
         }
@@ -53,7 +53,7 @@ public class SimulationRun {
      * Add action
      * @param type action type
      */
-    public void addAction(CommandType type) {
+    public void addAction(final CommandType type) {
         addAction(type, 0);
     }
 

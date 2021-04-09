@@ -19,6 +19,8 @@ public enum CommandType {
 
     /** Letter representing the command. */
     public final char letter;
+
+    /** An executive code for this action. */
     public final Supplier<ActionArgument> action;
 
     /** Map for faster access to items. */
@@ -29,7 +31,7 @@ public enum CommandType {
         );
     }
 
-    CommandType(char letter, Supplier<ActionArgument> action) {
+    CommandType(final char letter, final Supplier<ActionArgument> action) {
         this.letter = letter;
         this.action = action;
     }
@@ -39,7 +41,7 @@ public enum CommandType {
      * @param c letter
      * @return the field type or exception for wrong input.
      */
-    public static CommandType find(char c) {
+    public static CommandType find(final char c) {
         return Optional.ofNullable(cache.get(c)).orElseThrow(() -> new NoSuchElementException("No matching field for: " + c));
     }
 }
