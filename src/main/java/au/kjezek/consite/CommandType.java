@@ -12,16 +12,19 @@ import java.util.stream.Collectors;
  */
 public enum CommandType {
 
-    ADVANCE('a', ActionsFactory::advance),
-    LEFT('l', ActionsFactory::rotateLeft),
-    RIGHT('r', ActionsFactory::rotateRight),
-    QUIT('q', ActionsFactory::quit);
+    ADVANCE('a', true, ActionsFactory::advance),
+    LEFT('l', true, ActionsFactory::rotateLeft),
+    RIGHT('r', true, ActionsFactory::rotateRight),
+    QUIT('q', false, ActionsFactory::quit);
 
     /** Letter representing the command. */
     public final char letter;
 
     /** An executive code for this action. */
     public final Supplier<ActionArgument> action;
+
+    /** Check if this item is incurs any cost. */
+    public final boolean billable;
 
     /** Map for faster access to items. */
     private final static Map<Character, CommandType> cache;
@@ -31,9 +34,10 @@ public enum CommandType {
         );
     }
 
-    CommandType(final char letter, final Supplier<ActionArgument> action) {
+    CommandType(final char letter, final boolean billable, final Supplier<ActionArgument> action) {
         this.letter = letter;
         this.action = action;
+        this.billable = billable;
     }
 
     /**

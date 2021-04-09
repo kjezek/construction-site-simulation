@@ -36,6 +36,14 @@ public enum FieldType {
     }
 
     /**
+     * A field is done if it is either cleared or cannot be cleared (is protectedú
+     * @return true for finalised fields
+     */
+    public boolean isDone() {
+        return this == PLAIN || this == PROTECTED;
+    }
+
+    /**
      * Find field by its letter representation.
      * @param c letter
      * @return the field type or exception for wrong input.
@@ -43,4 +51,6 @@ public enum FieldType {
     public static FieldType find(char c) {
         return Optional.ofNullable(cache.get(c)).orElseThrow(() -> new NoSuchElementException("No matching field for: " + c));
     }
+
+
 }

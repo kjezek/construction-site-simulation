@@ -46,6 +46,9 @@ public class SimulationRun {
             throw new IllegalStateException("Simulation has already ended.");
         }
 
+        if (type.billable) {
+            bill.add(BillItem.RADIO, 1);
+        }
         actions.add(type.action.get().apply(param));
     }
 
@@ -66,9 +69,6 @@ public class SimulationRun {
         if (!active) {
             throw new IllegalStateException("Simulation has already ended.");
         }
-
-        // charge radio communication for all commands even if it ends earlier.
-        bill.add(BillItem.RADIO, actions.size());
 
         for (SimulationAction action: actions) {
             action.action(bill, bulldozer, map, (val) -> active = !val);

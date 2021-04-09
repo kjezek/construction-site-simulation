@@ -30,7 +30,7 @@ public class ActionsFactory {
     public static ActionArgument quit() {
         return (x) -> (bill, bulldozer, map, end) -> {
             for (FieldType field : map.fields()) {
-                if (field != FieldType.PLAIN && field != FieldType.PROTECTED) {
+                if (!field.isDone()) {
                     bill.add(BillItem.UNCLEARED, 1);
                 }
             }
@@ -55,7 +55,8 @@ public class ActionsFactory {
 
                 // if this is out of the map, the simulation ends
                 if (map.isOutsideMap(row, col)) {
-                    // TODO - no fuel charged when moving out of the map?
+                    // TODO - this fuel charged when moving out of the map?
+                    bill.add(BillItem.FUEL, FieldType.PLAIN.fuel);
                     quit().noArgs().action(bill, bulldozer, map, end);
                     break;
                 }

@@ -35,7 +35,7 @@ public class SimulationRunTest {
         assertEquals(FieldType.PLAIN, map.getField(2, 0));
 
         // check the bill
-        assertEquals(5 * BillItem.FUEL.price, bill.getSumItem(BillItem.FUEL));    // 1 - plain + 2 - tree + 2 - rock
+        assertEquals((1 + 2 + 2 + 1) * BillItem.FUEL.price, bill.getSumItem(BillItem.FUEL));    // 1 - plain + 2 - tree + 2 - rock + 1 outside the map
         assertEquals(4 * BillItem.UNCLEARED.price, bill.getSumItem(BillItem.UNCLEARED)); // 5 sites uncleared
         assertEquals(BillItem.PAINT.price, bill.getSumItem(BillItem.PAINT));
         assertEquals(3 * BillItem.RADIO.price, bill.getSumItem(BillItem.RADIO)); // 3 commands
@@ -56,6 +56,36 @@ public class SimulationRunTest {
         assertEquals(3 * BillItem.RADIO.price, bill.getSumItem(BillItem.RADIO)); // 3 commands
 
         run.addAction(CommandType.RIGHT); // must fail
+    }
+
+    @Test()
+    public void testQuitCommand() {
+
+        run.addAction(CommandType.ADVANCE, 1);
+        run.addAction(CommandType.ADVANCE, 1);
+        run.addAction(CommandType.QUIT);
+
+        run.process(); // run ALL commands
+
+        assertEquals(2 * BillItem.RADIO.price, bill.getSumItem(BillItem.RADIO)); // 3 commands
+
+        // end of simulation
+        assertFalse(run.isActive());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testCommandAfterQuitCommand() {
+
+        run.addAction(CommandType.ADVANCE, 1);
+        run.addAction(CommandType.ADVANCE, 1);
+        run.addAction(CommandType.QUIT);
+
+        run.process(); // run ALL commands
+        // end of simulation
+        assertFalse(run.isActive());
+
+        run.addAction(CommandType.ADVANCE, 1); // attempt to add more commands
+
     }
 
 }

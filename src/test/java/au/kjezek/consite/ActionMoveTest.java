@@ -35,7 +35,7 @@ public class ActionMoveTest {
         assertEquals(FieldType.PROTECTED, map.getField(1, 3));
 
         // check the bill
-        assertEquals((3+2) * BillItem.FUEL.price, bill.getSumItem(BillItem.FUEL));
+        assertEquals((3+2+1) * BillItem.FUEL.price, bill.getSumItem(BillItem.FUEL)); // 3x plain + 1x rock(2) + 1x out of map
         assertEquals((2+3) * BillItem.UNCLEARED.price, bill.getSumItem(BillItem.UNCLEARED));
         assertEquals(0, bill.getSumItem(BillItem.PROTECTED));
         assertEquals(0, bill.getSumItem(BillItem.PAINT));
@@ -44,6 +44,31 @@ public class ActionMoveTest {
         // check bulldozer position
         assertEquals(0, bulldozer.getRow());
         assertEquals(4, bulldozer.getCol());
+
+    }
+
+
+    /** Clear the same area twice. */
+    @Test
+    public void testClearedTwice() {
+        ActionsFactory.advance().apply(4).action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.rotateRight().noArgs().action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.rotateRight().noArgs().action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.advance().apply(4).action(bill, bulldozer, map, (val) -> {}); // go back
+
+        // first line clear
+        assertEquals(FieldType.PLAIN, map.getField(0, 0));
+        assertEquals(FieldType.PLAIN, map.getField(0, 1));
+        assertEquals(FieldType.PLAIN, map.getField(0, 2));
+        assertEquals(FieldType.PLAIN, map.getField(0, 3));
+
+        // check the bill
+        // 3 x plain + 2 x rock + 3 x plain on the way back
+        assertEquals((3+2+4) * BillItem.FUEL.price, bill.getSumItem(BillItem.FUEL));
+
+        // check bulldozer position
+        assertEquals(0, bulldozer.getRow());
+        assertEquals(-1, bulldozer.getCol());
 
     }
 
@@ -87,4 +112,5 @@ public class ActionMoveTest {
         // tree cleared
         assertEquals(FieldType.PLAIN, map.getField(2, 0));
     }
+
 }
