@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * An emum for all possible field types.
+ * An emum for all possible map square types.
  */
 public enum FieldType {
 

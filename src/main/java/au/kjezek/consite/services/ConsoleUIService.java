@@ -19,7 +19,7 @@ public class ConsoleUIService implements UIService {
     @Override
     public void printMap(SiteMap map) {
 
-        FieldType[][] site = map.getSite();
+        FieldType[][] site = map.site;
         for (int row = 0; row < site.length; row++) {
             for (int col = 0; col < site[0].length; col++) {
                 System.out.print(site[row][col].letter + " ");

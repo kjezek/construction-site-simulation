@@ -1,7 +1,5 @@
 package au.kjezek.consite;
 
-import au.kjezek.consite.actions.ActionArgument;
-import au.kjezek.consite.actions.SimulationAction;
 import au.kjezek.consite.domain.Bulldozer;
 import au.kjezek.consite.domain.CommandAndParam;
 import au.kjezek.consite.domain.SimulationBill;
@@ -11,10 +9,7 @@ import au.kjezek.consite.services.SimulationService;
 import au.kjezek.consite.services.UIService;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Application - the main class.
@@ -35,7 +30,7 @@ public class App {
             System.exit(-1);
         }
 
-        // build services here (no Spring or other IoC framework at the moment)
+        // build services here (no Spring or other IoC frameworks at the moment)
         UIService ui = new ConsoleUIService();
         SimulationService simulation = new SimulationService();
         SimulationBill bill = new SimulationBill();
@@ -64,6 +59,7 @@ public class App {
 
         System.out.println("\nSimulation done. The bill is: ");
         System.out.println("----------------------------------");
+
         ui.printBill(bill);
     }
 }

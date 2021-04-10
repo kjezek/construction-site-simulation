@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class SiteMap {
 
-    private final FieldType[][] site;
+    public final FieldType[][] site;
 
     /**
      * Create a map from input string lines.
@@ -91,9 +91,5 @@ public class SiteMap {
             throw new IllegalArgumentException("Coordinates outside of the map: Row: " + row + " Col: " + col);
         }
         site[row][col] = FieldType.PLAIN;
-    }
-
-    public FieldType[][] getSite() {
-        return site;
     }
 }

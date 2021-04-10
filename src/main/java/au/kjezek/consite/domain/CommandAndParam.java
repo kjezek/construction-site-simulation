@@ -1,7 +1,7 @@
 package au.kjezek.consite.domain;
 
 /**
- * This is a command with possible parameter.
+ * This is a command with one possible parameter.
  */
 public class CommandAndParam {
 
