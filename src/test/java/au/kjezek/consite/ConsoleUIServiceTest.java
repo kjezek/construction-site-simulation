@@ -74,12 +74,12 @@ public class ConsoleUIServiceTest {
         assertEquals(CommandType.QUIT, command.commandType);
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test()
     public void testReadWrongCommands() throws IOException {
         String txt = "xxx";
         ByteArrayInputStream stream = new ByteArrayInputStream(txt.getBytes());
 
-        ui.readActions(stream);
+        assertNull(ui.readActions(stream));
     }
 
     @Test

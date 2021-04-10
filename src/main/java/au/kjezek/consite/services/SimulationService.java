@@ -34,8 +34,7 @@ public class SimulationService {
 
         // atomic used as a holder only
         AtomicBoolean active = new AtomicBoolean(true);
-        SimulationAction action = command.commandType.action.get().apply(command.param);
-        action.action(bill, bulldozer, map, (val) -> active.set(!val));
+        command.toAction().action(bill, bulldozer, map, (val) -> active.set(!val));
 
         return active.get();
     }
