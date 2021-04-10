@@ -90,7 +90,7 @@ public class ConsoleUIServiceTest {
         CommandAndParam command = ui.readActions(stream);
 
         assertEquals(CommandType.ADVANCE, command.commandType);
-        assertNull(command.param);
+        assertEquals(Integer.valueOf(0), command.param);
     }
 
     @Test
