@@ -58,7 +58,7 @@ public class ConsoleUIService implements UIService {
         while ((line = reader.readLine()) != null) {
             String[] params = line.trim().split(" ");
             CommandType commandType = null;
-            Integer param = null;
+            int param = 0;
 
             // command with no argument
             if (params.length >= 1 && params[0].length() > 0) {
