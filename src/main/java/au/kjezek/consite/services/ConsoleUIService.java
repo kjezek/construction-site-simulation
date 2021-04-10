@@ -50,10 +50,10 @@ public class ConsoleUIService implements UIService {
     }
 
     @Override
-    public List<CommandAndParam> readActions(InputStream input) throws IOException {
+    public CommandAndParam readActions(InputStream input) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
-        List<CommandAndParam> actions = new ArrayList<>();
+        CommandAndParam action = null;
         String line;
         while ((line = reader.readLine()) != null) {
             String[] params = line.trim().split(" ");
@@ -61,7 +61,7 @@ public class ConsoleUIService implements UIService {
             Integer param = null;
 
             // command with no argument
-            if (params.length >= 1) {
+            if (params.length >= 1 && params[0].length() > 0) {
                 // find just by the first letter (basically ignore when a user inputs the whole command
                 char c = params[0].charAt(0);
                 commandType = CommandType.find(c);
@@ -71,11 +71,12 @@ public class ConsoleUIService implements UIService {
             }
 
             if (commandType != null) {
-                actions.add(new CommandAndParam(commandType, param));
+                action = new CommandAndParam(commandType, param);
+                break;
             }
         }
 
-        return actions;
+        return action;
     }
 
     @Override

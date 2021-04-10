@@ -30,11 +30,9 @@ public class SimulationServiceTest {
     @Test
     public void testAddAndRunActions() {
 
-        run.addAction(actions, bill, CommandType.ADVANCE, 1);
-        run.addAction(actions, bill, CommandType.RIGHT);
-        run.addAction(actions, bill, CommandType.ADVANCE, 10); // out of map
-
-        run.process(actions, map, bill, bulldozer); // run ALL commands
+        run.process(CommandAndParam.of(CommandType.ADVANCE, 1), map, bill, bulldozer); // run commands
+        run.process(CommandAndParam.of(CommandType.RIGHT), map, bill, bulldozer); // run commands
+        run.process(CommandAndParam.of(CommandType.ADVANCE, 10), map, bill, bulldozer); // run commands
 
         // check map - cleared areas
         assertEquals(FieldType.PLAIN, map.getField(1, 0));
@@ -51,11 +49,9 @@ public class SimulationServiceTest {
     @Test
     public void testQuitCommand() {
 
-        run.addAction(actions, bill, CommandType.ADVANCE, 1);
-        run.addAction(actions, bill, CommandType.ADVANCE, 1);
-        run.addAction(actions, bill, CommandType.QUIT);
-
-        boolean active = run.process(actions, map, bill, bulldozer); // run ALL commands
+        boolean active = run.process(CommandAndParam.of(CommandType.ADVANCE, 1), map, bill, bulldozer); // run ALL commands
+        active &= run.process(CommandAndParam.of(CommandType.ADVANCE, 1), map, bill, bulldozer); // run ALL commands
+        active &= run.process(CommandAndParam.of(CommandType.QUIT), map, bill, bulldozer); // run ALL commands
 
         assertFalse(active);
         assertEquals(2 * BillItem.RADIO.price, bill.getSumItem(BillItem.RADIO)); // 3 commands

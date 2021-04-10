@@ -49,6 +49,6 @@ public enum CommandType {
      * @return the field type or exception for wrong input.
      */
     public static CommandType find(final char c) {
-        return Optional.ofNullable(cache.get(c)).orElseThrow(() -> new NoSuchElementException("No matching command for: " + c));
+        return cache.get(c);
     }
 }

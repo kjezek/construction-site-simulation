@@ -73,4 +73,8 @@ public class Bulldozer {
     public int getCol() {
         return col;
     }
+
+    public int getDirection() {
+        return direction;
+    }
 }

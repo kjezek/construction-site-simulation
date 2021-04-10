@@ -50,19 +50,28 @@ public class ConsoleUIServiceTest {
         String txt = "advance 4 \n a 3\n left \n l \n right \n r \n q ";
         ByteArrayInputStream stream = new ByteArrayInputStream(txt.getBytes());
 
-        List<CommandAndParam> commands = ui.readActions(stream);
+        CommandAndParam command = ui.readActions(new ByteArrayInputStream("advance 4".getBytes()));
+        assertEquals(CommandType.ADVANCE, command.commandType);
+        assertEquals(new Integer(4), command.param);
 
-        assertEquals(CommandType.ADVANCE, commands.get(0).commandType);
-        assertEquals(new Integer(4), commands.get(0).param);
+        command = ui.readActions(new ByteArrayInputStream("a 3".getBytes()));
+        assertEquals(CommandType.ADVANCE, command.commandType);
+        assertEquals(new Integer(3), command.param);
 
-        assertEquals(CommandType.ADVANCE, commands.get(1).commandType);
-        assertEquals(new Integer(3), commands.get(1).param);
+        command = ui.readActions(new ByteArrayInputStream("left".getBytes()));
+        assertEquals(CommandType.LEFT, command.commandType);
 
-        assertEquals(CommandType.LEFT, commands.get(2).commandType);
-        assertEquals(CommandType.LEFT, commands.get(3).commandType);
-        assertEquals(CommandType.RIGHT, commands.get(4).commandType);
-        assertEquals(CommandType.RIGHT, commands.get(5).commandType);
-        assertEquals(CommandType.QUIT, commands.get(6).commandType);
+        command = ui.readActions(new ByteArrayInputStream("l".getBytes()));
+        assertEquals(CommandType.LEFT, command.commandType);
+
+        command = ui.readActions(new ByteArrayInputStream("right".getBytes()));
+        assertEquals(CommandType.RIGHT, command.commandType);
+
+        command = ui.readActions(new ByteArrayInputStream("r".getBytes()));
+        assertEquals(CommandType.RIGHT, command.commandType);
+
+        command = ui.readActions(new ByteArrayInputStream("q".getBytes()));
+        assertEquals(CommandType.QUIT, command.commandType);
     }
 
     @Test(expected = NoSuchElementException.class)
@@ -78,10 +87,10 @@ public class ConsoleUIServiceTest {
         String txt = "a";
         ByteArrayInputStream stream = new ByteArrayInputStream(txt.getBytes());
 
-        List<CommandAndParam> commands = ui.readActions(stream);
+        CommandAndParam command = ui.readActions(stream);
 
-        assertEquals(CommandType.ADVANCE, commands.get(0).commandType);
-        assertNull(commands.get(0).param);
+        assertEquals(CommandType.ADVANCE, command.commandType);
+        assertNull(command.param);
     }
 
     @Test

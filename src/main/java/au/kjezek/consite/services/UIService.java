@@ -6,7 +6,6 @@ import au.kjezek.consite.domain.SiteMap;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 /**
  * This is a UI service.
@@ -27,11 +26,11 @@ public interface UIService {
     void printBill(SimulationBill bill);
 
     /**
-     * Read actions from the user.
+     * Read one command from the user.
      * @param input the input source.
      * @return actions.
      */
-    List<CommandAndParam> readActions(InputStream input) throws IOException;
+    CommandAndParam readActions(InputStream input) throws IOException;
 
     /**
      * Read site maps from the input source.

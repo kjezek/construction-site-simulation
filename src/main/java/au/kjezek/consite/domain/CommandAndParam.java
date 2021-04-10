@@ -12,4 +12,21 @@ public class CommandAndParam {
         this.commandType = commandType;
         this.param = param;
     }
+
+    public static CommandAndParam of(CommandType commandType, Integer param) {
+        return new CommandAndParam(commandType, param);
+    }
+
+    public static CommandAndParam of(CommandType commandType) {
+        return of(commandType, null);
+    }
+
+    public String toString() {
+        String result = commandType.letter + "";
+        if (param != null) {
+            result += " " + param;
+        }
+
+        return result;
+    }
 }
