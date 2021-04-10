@@ -23,7 +23,7 @@ public class SimulationBill {
         if (units < 0) {
             throw new IllegalArgumentException("Units must be non-negative. ");
         }
-        bill.compute(item, (k, v) -> v == null ? item.price * units : v + item.price * units);
+        bill.compute(item, (k, v) -> v == null ? units : v + units);
     }
 
     /**
@@ -32,6 +32,16 @@ public class SimulationBill {
      * @return the total price of the item, or null.
      */
     public int getSumItem(final BillItem item) {
+        return Optional.ofNullable(bill.get(item)).orElse(0) * item.price;
+    }
+
+
+    /**
+     * Get the number of units of the input item.
+     * @param item the item
+     * @return the total price of the item, or null.
+     */
+    public int getUnitsItem(final BillItem item) {
         return Optional.ofNullable(bill.get(item)).orElse(0);
     }
 
@@ -40,6 +50,7 @@ public class SimulationBill {
      * @return sum of all items in the bill
      */
     public int total() {
-        return bill.values().stream().mapToInt(Integer::intValue).sum();
+
+        return bill.entrySet().stream().mapToInt(e -> e.getKey().price * e.getValue()).sum();
     }
 }

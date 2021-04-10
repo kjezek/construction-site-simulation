@@ -59,7 +59,7 @@ public class SiteMap {
      * Return all fields.
      * @return all fields in the array.
      */
-    public List<FieldType> fields() {
+    public List<FieldType> fieldsList() {
         List<FieldType> fields = new ArrayList<>();
         for (int row = 0; row < site.length; row++) {
             for (int col = 0; col < site[0].length; col++) {
@@ -91,5 +91,9 @@ public class SiteMap {
             throw new IllegalArgumentException("Coordinates outside of the map: Row: " + row + " Col: " + col);
         }
         site[row][col] = FieldType.PLAIN;
+    }
+
+    public FieldType[][] getSite() {
+        return site;
     }
 }

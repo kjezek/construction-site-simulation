@@ -29,7 +29,7 @@ public class ActionsFactory {
      */
     public static ActionArgument quit() {
         return (x) -> (bill, bulldozer, map, end) -> {
-            for (FieldType field : map.fields()) {
+            for (FieldType field : map.fieldsList()) {
                 if (!field.isDone()) {
                     bill.add(BillItem.UNCLEARED, 1);
                 }

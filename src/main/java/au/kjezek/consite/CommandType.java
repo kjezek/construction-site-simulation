@@ -41,11 +41,11 @@ public enum CommandType {
     }
 
     /**
-     * Find field by its letter representation.
+     * Find this type by its letter representation.
      * @param c letter
      * @return the field type or exception for wrong input.
      */
     public static CommandType find(final char c) {
-        return Optional.ofNullable(cache.get(c)).orElseThrow(() -> new NoSuchElementException("No matching field for: " + c));
+        return Optional.ofNullable(cache.get(c)).orElseThrow(() -> new NoSuchElementException("No matching command for: " + c));
     }
 }

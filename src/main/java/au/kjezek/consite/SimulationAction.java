@@ -1,7 +1,6 @@
 package au.kjezek.consite;
 
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 /**
  * Interface performing a simulation step.
