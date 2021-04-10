@@ -1,4 +1,4 @@
-package au.kjezek.consite;
+package au.kjezek.consite.domain;
 
 import java.util.Arrays;
 import java.util.Map;

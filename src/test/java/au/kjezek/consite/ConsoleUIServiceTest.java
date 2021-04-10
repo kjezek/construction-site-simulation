@@ -1,5 +1,8 @@
 package au.kjezek.consite;
 
+import au.kjezek.consite.domain.*;
+import au.kjezek.consite.services.ConsoleUIService;
+import au.kjezek.consite.services.UIService;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,4 +1,7 @@
-package au.kjezek.consite;
+package au.kjezek.consite.services;
+
+import au.kjezek.consite.actions.SimulationAction;
+import au.kjezek.consite.domain.*;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;

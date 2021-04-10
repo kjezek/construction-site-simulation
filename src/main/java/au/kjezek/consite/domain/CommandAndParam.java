@@ -1,4 +1,4 @@
-package au.kjezek.consite;
+package au.kjezek.consite.domain;
 
 /**
  * This is a command with possible parameter.

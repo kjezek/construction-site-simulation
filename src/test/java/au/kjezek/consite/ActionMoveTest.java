@@ -1,5 +1,7 @@
 package au.kjezek.consite;
 
+import au.kjezek.consite.actions.ActionsFactory;
+import au.kjezek.consite.domain.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

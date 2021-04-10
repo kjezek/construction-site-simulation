@@ -1,4 +1,4 @@
-package au.kjezek.consite;
+package au.kjezek.consite.domain;
 
 /**
  * Bill items.

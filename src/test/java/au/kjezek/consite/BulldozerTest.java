@@ -1,5 +1,6 @@
 package au.kjezek.consite;
 
+import au.kjezek.consite.domain.Bulldozer;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

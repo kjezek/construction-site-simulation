@@ -1,5 +1,7 @@
 package au.kjezek.consite;
 
+import au.kjezek.consite.domain.FieldType;
+import au.kjezek.consite.domain.SiteMap;
 import org.junit.Test;
 
 import java.util.NoSuchElementException;

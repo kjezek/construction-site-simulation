@@ -1,5 +1,7 @@
 package au.kjezek.consite;
 
+import au.kjezek.consite.domain.BillItem;
+import au.kjezek.consite.domain.SimulationBill;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

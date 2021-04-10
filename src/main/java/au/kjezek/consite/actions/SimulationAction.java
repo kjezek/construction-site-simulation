@@ -1,4 +1,8 @@
-package au.kjezek.consite;
+package au.kjezek.consite.actions;
+
+import au.kjezek.consite.domain.Bulldozer;
+import au.kjezek.consite.domain.SimulationBill;
+import au.kjezek.consite.domain.SiteMap;
 
 import java.util.function.Consumer;
 

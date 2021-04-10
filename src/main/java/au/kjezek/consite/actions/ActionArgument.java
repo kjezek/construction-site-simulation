@@ -1,4 +1,4 @@
-package au.kjezek.consite;
+package au.kjezek.consite.actions;
 
 
 import java.util.function.Function;

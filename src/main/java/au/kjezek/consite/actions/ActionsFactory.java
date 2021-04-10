@@ -1,4 +1,7 @@
-package au.kjezek.consite;
+package au.kjezek.consite.actions;
+
+import au.kjezek.consite.domain.BillItem;
+import au.kjezek.consite.domain.FieldType;
 
 /**
  * A factory class to build various simulation actions.

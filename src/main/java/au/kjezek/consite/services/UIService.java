@@ -1,4 +1,8 @@
-package au.kjezek.consite;
+package au.kjezek.consite.services;
+
+import au.kjezek.consite.domain.CommandAndParam;
+import au.kjezek.consite.domain.SimulationBill;
+import au.kjezek.consite.domain.SiteMap;
 
 import java.io.IOException;
 import java.io.InputStream;

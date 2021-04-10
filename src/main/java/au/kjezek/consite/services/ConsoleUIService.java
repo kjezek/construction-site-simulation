@@ -1,4 +1,6 @@
-package au.kjezek.consite;
+package au.kjezek.consite.services;
+
+import au.kjezek.consite.domain.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
