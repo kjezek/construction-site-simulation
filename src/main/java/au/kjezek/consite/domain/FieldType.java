@@ -36,7 +36,7 @@ public enum FieldType {
     }
 
     /**
-     * A field is done if it is either cleared or cannot be cleared (is protectedú
+     * A field is done if it is either cleared or cannot be cleared (is protected)
      * @return true for finalised fields
      */
     public boolean isDone() {
