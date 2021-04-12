@@ -16,7 +16,7 @@ To run the simulator, one input argument must be provided.
 This argument is a file-system path to a file with the map of 
 an area to run the simulation on:
 
-> java -jar construction-site-simulator-<version>-spring-boot.jar <file path>
+> java -jar construction-site-simulator-[version]-spring-boot.jar [file path]
 
 An example map is provided with the build of this program. 
 The run the recent build with an example map, 
@@ -31,7 +31,7 @@ the bill is printed.
 # Program Design
 
 The program combines stateless services, stateful domain objects,
-and functional-style actions.
+and functional programming style actions.
 
 Services are stored in the sub-package ```services``` and 
 they trigger actions from the sub-package ```actions```.
@@ -50,9 +50,9 @@ are designed with the dependency injection principle.
 
 The project shows possible
 combination of stateless services and functional programming in 
-Java. It has some limitations caused by not enough 
-dynamicity of Java lambdas. For instance, lambda arguments 
-are not flexible, which means that some actions from 
+Java. It has some limitations caused by not sufficient 
+dynamicity of Java lambdas. For instance, the number of lambda arguments 
+is not flexible, which means that some actions from 
 ```ActionsFactory``` must define the input argument, 
 even if it is not used (see, the ```x``` argument, which is ignored),
 because other actions do have an input argument. 
@@ -61,7 +61,7 @@ The enum ```CommandType``` breaks the inversion-of-control
 principle as it directly injects dependencies from ```ActionsFactory```.
 It is because enums are "static classes", and while they can be 
 modified at run-time, there is no elegant way to inject their
-dependencies. For this reason ```ActionsFactory``` contains 
+dependencies as part of their creation. For this reason ```ActionsFactory``` contains 
 static methods, which are directly called from the enum creation. 
 An alternative could be a standard class 
-instantiated in more instances in replacement to the enum items. 
+instantiated in more instances in replacement of enum items. 
