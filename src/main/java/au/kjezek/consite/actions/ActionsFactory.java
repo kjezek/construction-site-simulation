@@ -15,7 +15,7 @@ public class ActionsFactory {
      * @return an action that rotates the bulldozer
      */
     public static ActionArgument rotateLeft() {
-        return (x) -> (bill, bulldozer, map, end) -> bulldozer.rotateLeft();
+        return (x, y) -> (bill, bulldozer, map, end) -> bulldozer.rotateLeft();
     }
 
     /**
@@ -23,7 +23,7 @@ public class ActionsFactory {
      * @return an action that rotates the bulldozer
      */
     public static ActionArgument rotateRight() {
-        return (x) -> (bill, bulldozer, map, end) -> bulldozer.rotateRight();
+        return (x, y) -> (bill, bulldozer, map, end) -> bulldozer.rotateRight();
     }
 
     /**
@@ -31,7 +31,7 @@ public class ActionsFactory {
      * @return an action that quits the simulation and computes the bill of uncleared land.
      */
     public static ActionArgument quit() {
-        return (x) -> (bill, bulldozer, map, end) -> {
+        return (x, y) -> (bill, bulldozer, map, end) -> {
             for (FieldType field : map.fieldsList()) {
                 if (!field.isDone()) {
                     bill.add(BillItem.UNCLEARED, 1);
@@ -43,11 +43,41 @@ public class ActionsFactory {
     }
 
     /**
+     * Place action
+     * @return the action
+     */
+    public static ActionArgument place() {
+        return (x, y) -> (bill, bulldozer, map, end) -> {
+
+            bulldozer.place(x, y);
+
+            // if this is out of the map, the simulation ends
+            if (map.isOutsideMap(x, y)) {
+                quit().noArgs().action(bill, bulldozer, map, end);
+                return;
+            }
+
+            int row = bulldozer.getRow();
+            int col = bulldozer.getCol();
+            FieldType originalField = map.getField(row, col);
+
+            map.clear(x, y);
+
+            // a corner cases - protected land, it ends simulation with penalty
+            if (FieldType.PROTECTED == originalField) {
+                bill.add(BillItem.PROTECTED, 1);
+                quit().noArgs().action(bill, bulldozer, map, end);
+            }
+
+        };
+    }
+
+    /**
      *
      * @return an action that moves the bulldozer and adjust the land and the bill accordingly.
      */
     public static ActionArgument advance() {
-        return (steps) -> (bill, bulldozer, map, end) -> {
+        return (steps, x) -> (bill, bulldozer, map, end) -> {
 
             for (int step = 0; step < steps; step++) {
 

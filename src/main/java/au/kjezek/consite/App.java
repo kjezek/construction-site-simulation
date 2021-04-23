@@ -35,7 +35,6 @@ public class App {
         SimulationService simulation = new SimulationService();
         SimulationBill bill = new SimulationBill();
         Bulldozer bulldozer = new Bulldozer();
-
         SiteMap map = ui.readMap(new FileInputStream(args[0]));
 
         System.out.println("Welcome to the site clearing simulator. This is a map of the site:");

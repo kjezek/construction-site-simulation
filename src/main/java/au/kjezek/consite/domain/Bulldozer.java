@@ -53,6 +53,16 @@ public class Bulldozer {
     }
 
     /**
+     * Place the bulldozer at the given possition.
+     * @param x row
+     * @param y column
+     */
+    public void place(int x, int y) {
+        col = y;
+        row = x;
+    }
+
+    /**
      * Rotate the bulldozer right.
      */
     public void rotateRight() {

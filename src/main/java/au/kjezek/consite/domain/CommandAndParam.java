@@ -20,7 +20,7 @@ public class CommandAndParam {
      * @return the simulation action.
      */
     public SimulationAction toAction() {
-        return commandType.action.get().apply(param);
+        return commandType.action.get().oneArg(param);
     }
 
     public static CommandAndParam of(CommandType commandType, Integer param) {

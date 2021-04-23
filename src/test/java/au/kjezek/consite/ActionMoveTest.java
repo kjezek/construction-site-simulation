@@ -1,5 +1,6 @@
 package au.kjezek.consite;
 
+import au.kjezek.consite.actions.ActionArgument;
 import au.kjezek.consite.actions.ActionsFactory;
 import au.kjezek.consite.domain.*;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class ActionMoveTest {
     /** Clear part - the first row. */
     @Test
     public void testClearPartly() {
-        ActionsFactory.advance().apply(10).action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.advance().oneArg(10).action(bill, bulldozer, map, (val) -> {});
 
         // first line clear
         assertEquals(FieldType.PLAIN, map.getField(0, 0));
@@ -53,10 +54,10 @@ public class ActionMoveTest {
     /** Clear the same area twice. */
     @Test
     public void testClearedTwice() {
-        ActionsFactory.advance().apply(4).action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.advance().oneArg(4).action(bill, bulldozer, map, (val) -> {});
         ActionsFactory.rotateRight().noArgs().action(bill, bulldozer, map, (val) -> {});
         ActionsFactory.rotateRight().noArgs().action(bill, bulldozer, map, (val) -> {});
-        ActionsFactory.advance().apply(4).action(bill, bulldozer, map, (val) -> {}); // go back
+        ActionsFactory.advance().oneArg(4).action(bill, bulldozer, map, (val) -> {}); // go back
 
         // first line clear
         assertEquals(FieldType.PLAIN, map.getField(0, 0));
@@ -79,9 +80,9 @@ public class ActionMoveTest {
     public void testClearProtected() {
 
         // move to cleared area
-        ActionsFactory.advance().apply(4).action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.advance().oneArg(4).action(bill, bulldozer, map, (val) -> {});
         ActionsFactory.rotateRight().noArgs().action(bill, bulldozer, map, (val) -> {});
-        ActionsFactory.advance().apply(100).action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.advance().oneArg(100).action(bill, bulldozer, map, (val) -> {});
 
         // check that the fine applied
         assertEquals(BillItem.PROTECTED.price, bill.getSumItem(BillItem.PROTECTED));
@@ -100,9 +101,9 @@ public class ActionMoveTest {
     public void testPaintCharged() {
 
         // move to cleared area
-        ActionsFactory.advance().apply(1).action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.advance().oneArg(1).action(bill, bulldozer, map, (val) -> {});
         ActionsFactory.rotateRight().noArgs().action(bill, bulldozer, map, (val) -> {});
-        ActionsFactory.advance().apply(2).action(bill, bulldozer, map, (val) -> {});
+        ActionsFactory.advance().oneArg(2).action(bill, bulldozer, map, (val) -> {});
 
         // check that the fine applied
         assertEquals(BillItem.PAINT.price, bill.getSumItem(BillItem.PAINT));
@@ -113,6 +114,36 @@ public class ActionMoveTest {
 
         // tree cleared
         assertEquals(FieldType.PLAIN, map.getField(2, 0));
+    }
+
+    @Test
+    public void testPlaceInMap() {
+        ActionsFactory.place().apply(0, 2).action(bill, bulldozer, map, (val) -> {});
+
+        // check the map
+        assertEquals(FieldType.PLAIN, map.getField(0, 2));
+
+        // check the bill
+        assertEquals(0, bill.getSumItem(BillItem.FUEL));
+
+        // check bulldozer position
+        assertEquals(0, bulldozer.getRow());
+        assertEquals(2, bulldozer.getCol());
+    }
+
+    @Test
+    public void testPlaceProtectedMap() {
+        ActionsFactory.place().apply(1, 3).action(bill, bulldozer, map, (val) -> {});
+
+        // check the map
+        assertEquals(FieldType.PLAIN, map.getField(1, 3));
+
+        // check the bill
+        assertEquals(BillItem.PROTECTED.price, bill.getSumItem(BillItem.PROTECTED));
+
+        // check bulldozer position
+        assertEquals(1, bulldozer.getRow());
+        assertEquals(3, bulldozer.getCol());
     }
 
 }

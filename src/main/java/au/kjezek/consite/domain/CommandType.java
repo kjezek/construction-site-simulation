@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public enum CommandType {
 
     ADVANCE('a', true, ActionsFactory::advance),
+    PLACE('p', true, ActionsFactory::advance),
     LEFT('l', true, ActionsFactory::rotateLeft),
     RIGHT('r', true, ActionsFactory::rotateRight),
     QUIT('q', false, ActionsFactory::quit);
